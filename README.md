@@ -14,7 +14,7 @@ This project is based on a task from The Odin Project, a free online curriculum 
 
 Here's an example of how to use the LinkedList class:
 
-```
+```javascript
 const linkedlist = new LinkedList();
 ["Tigeral", "Ruby", "Brody", "Melissa", "Yin", "Martis", "Gusian"]
     .forEach(username => linkedlist.append(username)); //add elements to linked list
