@@ -151,6 +151,59 @@ class LinkedList {
     contains(value) {
         return this.find(value) === null ? false : true;
     }
+    
+    /**
+     * Insert an element at a specific index in the linked list.
+     * @param {any} element - The element to insert.
+     * @param {number} index - The index at which to insert the element.
+     * @throws {Error} If the index is out of range.
+     */
+    insertAt(element, index) {
+        if (index < 0 || index >= this.#_size)
+          throw Error("IndexError: index out of range");
+        if (index === 0)
+            this.prepend(element);
+        else if (index === this.#_size-1)
+            this.append(element);
+        else {
+            let i = 0;
+            let temp = this.#_head;
+            while (temp.next != null && i+1 !== index) {
+                temp = temp.next;
+                i++;
+            }
+            const newNode = new Node(element);
+            newNode.next = temp.next;
+            temp.next = newNode;
+            this.size++;
+        }
+    }
+
+    /**
+     * 
+     * @param {Number} index - The index to remove element at specific position
+     * @throws {Error}  If index is out of range
+     */
+    removeAt(index) {
+        if (index < 0 || index >= this.#_size)
+            throw Error("IndexError: index out of range");
+        if (index === 0) {
+            this.#_head = this.#_head.next;
+            this.#_size--;
+        }
+        else if (index === this.#_size - 1)
+            this.pop();
+        else {
+            let i = 0;
+            let temp = this.#_head;
+            while (temp.next != null && i+1 !== index) {
+                temp = temp.next;
+                i++;
+            }
+            temp.next = temp.next.next;
+            this.#_size--;
+        }
+    }
 
     /**
      * Print the linked list.
@@ -163,16 +216,34 @@ class LinkedList {
           result += temp+"\n";
           temp = temp.next;
         }
-        return  `size: ${this.size()}\n` +
-                `tail: ${this.tail()}\n\n`+
-                result;
+        console.log(
+                `size: ${this.#_size}\n` +
+                `tail: ${this.#_tail}\n`+
+                result
+        );
+        const underlineCounts = result.split("\n")[0].length;
+        console.log("=".repeat(underlineCounts));
     }
 }
 
 const linkedlist = new LinkedList();
-linkedlist.append(1);
-linkedlist.append(2);
-linkedlist.append(5);
-linkedlist.append(100);
-console.log(linkedlist.find(5));
-console.log(linkedlist.print())
+["Tigeral", "Ruby", "Brody", "Melissa", "Yin", "Martis", "Gusian"]
+    .forEach(username => linkedlist.append(username)); //add elements to linked list
+
+linkedlist.print(); //prints all data
+
+linkedlist.prepend("Johnson"); //add element at first position
+linkedlist.print();
+
+linkedlist.append("Vexana"); //add element to last position
+linkedlist.print();
+
+linkedlist.pop(); //remove last element
+linkedlist.print();
+
+console.log(linkedlist.at(0)) //print Node at index 0
+console.log(linkedlist.contains("Melissa")); //check if cretain value exist or not
+console.log(linkedlist.find("Melissa")); //return index of element if it element exists
+
+linkedlist.insertAt("Odette", 4); //insert element at specific position || index 
+linkedlist.print();
