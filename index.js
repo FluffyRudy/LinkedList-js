@@ -1,18 +1,41 @@
+/**
+ * Class representing a Node.
+ *
+ * @class
+ */
 class Node {
+    /**
+     * Create a node.
+     * @param {any} value - The value to be stored in the node.
+     */
     constructor(value) {
         this.value = value;
         this.next  = null;
     }
 
+    /**
+     * Convert the node to a string.
+     * @returns {string} A string representation of the node.
+     */
     toString() {
         return `Node { value: ${this.value}, next: ${this.next ? this.next.value : 'null'} }`;
     }
 }
 
+/**
+ * Class representing a LinkedList.
+ *
+ * @class
+ */
 class LinkedList {
     #_head = null;
     #_tail = null;
     #_size = 0;
+
+    /**
+     * Append an element to the end of the linked list.
+     * @param {any} element - The element to append.
+     */
     append(element) {
         const temp = new Node(element);
         if (this.#_head !== null) {
@@ -23,6 +46,11 @@ class LinkedList {
         }
         this.#_size++;
     }
+
+    /**
+     * Prepend an element to the start of the linked list.
+     * @param {any} element - The element to prepend.
+     */
     prepend(element) {
         const temp = new Node(element);
         if (this.#_head !== null) {
@@ -34,15 +62,36 @@ class LinkedList {
         this.#_size++;
     }
 
+    /**
+     * Get the size of the linked list.
+     * @returns {number} The size of the linked list.
+     */
     size() {
         return this.#_size;
     }
+
+    /**
+     * Get the head of the linked list.
+     * @returns {Node} The head of the linked list.
+     */
     head() {
         return this.#_head;
     }
+
+    /**
+     * Get the tail of the linked list.
+     * @returns {Node} The tail of the linked list.
+     */
     tail() {
         return this.#_tail;
     }
+
+    /**
+     * Get the node at a specific index in the linked list.
+     * @param {number} index - The index of the node.
+     * @returns {Node} The node at the specified index.
+     * @throws {Error} If the index is out of range.
+     */
     at(index) {
         if (index < 0 || index >= this.#_size)
             throw Error("IndexError: index out of range");
@@ -55,6 +104,11 @@ class LinkedList {
             temp = temp.next;
         }
     }
+
+    /**
+     * Remove the last element from the linked list.
+     * @throws {Error} If the list is empty.
+     */
     pop() {
         if (this.#_size === 0)
             throw Error("IndexError: pop from empty list");
@@ -71,6 +125,12 @@ class LinkedList {
         }
         this.#_size--;
     }
+
+    /**
+     * Find the index of a value in the linked list.
+     * @param {any} value - The value to find.
+     * @returns {number|null} The index of the value or null if not found.
+     */
     find(value) {
         let temp = this.#_head;
         let i = 0;
@@ -83,10 +143,19 @@ class LinkedList {
         return null;
     }
 
+    /**
+     * Check if the linked list contains a value.
+     * @param {any} value - The value to check.
+     * @returns {boolean} True if the value is found, false otherwise.
+     */
     contains(value) {
         return this.find(value) === null ? false : true;
     }
 
+    /**
+     * Print the linked list.
+     * @returns {string} A string representation of the linked list.
+     */
     print() {
         let temp = this.#_head;
         let result = "";
